@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>DBT Diary Card</display-name>
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext </param-name>
+        <param-value>messages</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>vraptor2</servlet-name>
+        <servlet-class>org.vraptor.VRaptorServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>vraptor2</servlet-name>
+        <url-pattern>*.logic</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>velocity</servlet-name>
+        <servlet-class>org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>velocity</servlet-name>
+        <url-pattern>*.vm</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.vm</welcome-file>
+    </welcome-file-list>
+    <!--security-role>
+        <description>A user</description>
+        <role-name>user</role-name>
+    </security-role>
+    <security-role>
+        <description>A provider</description>
+        <role-name>provider</role-name>
+    </security-role>
+    <security-role>
+        <description>An admin user</description>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Protected Area</web-resource-name>
+            <url-pattern>/index.vm</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.vm</form-login-page>
+            <form-error-page>/loginerror.vm</form-error-page>
+        </form-login-config>
+    </login-config-->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <resource-ref>
+        <description>Diary Card Datasource</description>
+        <res-ref-name>jdbc/diarycard</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+</web-app>

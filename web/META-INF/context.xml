@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/DBTCard">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" logAbandoned="true" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/diarycard" password="ganewa4" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/diarycard" username="root"/>
+  <!--Realm className="org.apache.catalina.realm.DataSourceRealm" 
+        dataSourceName="jdbc/diarycard" debug="99" localDataSource="true" 
+        userTable="userpass" userCredCol="password" userNameCol="username"
+        userRoleTable="userrole" roleNameCol="rolename"/-->
+</Context>

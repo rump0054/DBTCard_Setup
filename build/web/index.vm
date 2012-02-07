@@ -1,0 +1,11 @@
+<html>
+<head>
+<title>Works</title>
+</head>
+<body>
+#set( $h = "Hello" )
+
+<h1>$h</h1>
+
+</body>
+</html>
