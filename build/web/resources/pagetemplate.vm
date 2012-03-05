@@ -14,9 +14,10 @@ $(document).ready(function() {
     });
 
     $("#datepicker").datepicker({
-        setDate: '$params.datekey',
+        inline: true,
+	defaultDate: '$params.datekey',
         onSelect: function(dateText, inst) {
-            var url = "card.day.logic?datekey=" + dateText;
+            var url = "card.direct.logic?datekey=" + dateText;
             $(location).attr("href",url);
         }
     });

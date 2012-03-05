@@ -4,15 +4,20 @@
 <input type="hidden" name="dayCard.daykey" value="$!card.daykey"/>
 #set( $targets = $card.targets )
 #set( $c = 0 )
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:5%">
+<tr>
+<td>
 <fieldset>
 <legend>Feelings</legend>
 <table border="0" cellpadding="3" cellspacing="3">
 #foreach( $t in $card.getCategoryTargets('f'))
 <tr>
     <td>
-        <label>$!t.target</label>
+        <nobr><label>$!t.target</label></nobr>
     </td>
     <td>
+        <nobr>
         <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
         <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
         <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
@@ -28,15 +33,91 @@
                 <input type="radio" name="targs[$c].value" value="$v"
                     #if($t.value eq $v) checked #end/><label>$v</label>
             #end
-        #end    
+        #end
+        </nobr>
     </td>
 </tr>
 #set( $c = $c+1)
 #end
-<tr>
-    <td colspan="2" align="right">
-        <input type="submit" value="Go"/>
-    </td>
-</tr>
 </table>
 </fieldset>
+</td>
+</tr>
+<tr>
+    <td>
+    <fieldset>
+    <legend>Thoughts</legend>
+    <table border="0" cellpadding="3" cellspacing="3">
+    #foreach( $t in $card.getCategoryTargets('t'))
+    <tr>
+        <td>
+            <nobr><label>$!t.target</label></nobr>
+        </td>
+        <td>
+            <nobr>
+            <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
+            <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
+            <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
+            #if($t.rangeMax eq "count")
+                <input type="text" name="targs[$c].value" value="$!t.value" size="3"/>
+            #elseif($t.rangeMax eq "Y/N" )
+                <input type="radio" name="targs[$c].value" value="Y"
+                    #if($t.value eq "Y") checked #end/><label>Y</label>
+                <input type="radio" name="targs[$c].value" value="N"
+                    #if($t.value eq "N") checked #end/><label>N</label>
+            #else
+                #foreach( $v in [0..5] )
+                    <input type="radio" name="targs[$c].value" value="$v"
+                        #if($t.value eq $v) checked #end/><label>$v</label>
+                #end
+            #end 
+            </nobr>
+        </td>
+    </tr>
+    #set( $c = $c+1)
+    #end
+    </table>
+    </fieldset>
+    </td>
+</tr>
+<tr>
+    <td>
+    <fieldset>
+    <legend>Behaviors</legend>
+    <table border="0" cellpadding="3" cellspacing="3">
+    #foreach( $t in $card.getCategoryTargets('b'))
+    <tr>
+        <td>
+            <nobr><label>$!t.target</label></nobr>
+        </td>
+        <td>
+            <nobr>
+            <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
+            <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
+            <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
+            #if($t.rangeMax eq "count")
+                <input type="text" name="targs[$c].value" value="$!t.value" size="3"/>
+            #elseif($t.rangeMax eq "Y/N" )
+                <input type="radio" name="targs[$c].value" value="Y"
+                    #if($t.value eq "Y") checked #end/><label>Y</label>
+                <input type="radio" name="targs[$c].value" value="N"
+                    #if($t.value eq "N") checked #end/><label>N</label>
+            #else
+                #foreach( $v in [0..5] )
+                    <input type="radio" name="targs[$c].value" value="$v"
+                        #if($t.value eq $v) checked #end/><label>$v</label>
+                #end
+            #end    
+            </nobr>
+        </td>
+    </tr>
+    #set( $c = $c+1)
+    #end
+    </table>
+    </fieldset>
+    </td>
+</tr>
+<tr>
+    <td align="right"><input type="submit" value="Done"/></td>
+</tr>
+</table>
