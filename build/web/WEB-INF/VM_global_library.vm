@@ -20,4 +20,5 @@
  * it need only be changed here.
  *#
 #macro( title $string )
-#set( $page_title = $string )#end
+    #set( $page_title = $string )
+#end

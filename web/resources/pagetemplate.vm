@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Diary Card Setup</title>
+<link rel='stylesheet' type='text/css' href='resources/style/dbt.css' />
+<link rel='stylesheet' type='text/css' href='resources/style/cupertino/jquery-ui.css' />
+<script type='text/javascript' src='resources/scripts/jquery-1.7.1.min.js'></script>
+<script type='text/javascript' src='resources/scripts/jquery-ui-1.8.18.custom.min.js'></script>
+<script type="text/javascript" src='resources/scripts/jquery.formtips.js'></script>
+<script>
+$(document).ready(function() {
+    $('#targetTarget').formtips({
+        tippedClass: 'tipped'
+    });
+
+    $("#datepicker").datepicker({
+        setDate: '$params.datekey',
+        onSelect: function(dateText, inst) {
+            var url = "card.day.logic?datekey=" + dateText;
+            $(location).attr("href",url);
+        }
+    });
+});
+</script>
+<style>
+.notice {
+    color: #069;
+    font-weight: bold;
+}
+
+ul {
+    -webkit-padding-start: 0;
+}
+
+ul li {
+    display: inline;
+}
+
+h3 {
+    line-height: 1em;
+    margin-bottom: 5px; 
+}
+
+</style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div id="site-name-slogan">
+            <a href="$link.contextPath" rel="home" id="logo">
+                <img src="resources/images/logo.png" alt="Home" />
+            </a>
+            <h2 id="site-name">
+                <a href="$link.contextPath" title="Home" rel="home">
+                    <span>DBT Diary Cards</span>
+                </a>
+            </h2>
+            <div id="site-slogan">
+                Online DBT Diary Cards
+            </div>
+        </div>
+    </div>
+    
+<div id="space" style="margin-top:10px">
+    <div id="sidebar-first">
+        <div id='datepicker'></div>
+    </div>
+
+    <div id="main" class="one-sidebar">
+        $!screen_content
+    </div>
+</div>
+</div>
+</body>
+</html>

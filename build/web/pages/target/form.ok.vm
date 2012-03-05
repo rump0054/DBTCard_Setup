@@ -1,0 +1,32 @@
+<html>
+<head>
+</head>
+<body>
+<form method="post" action="$action">
+<input type="hidden" name="targ.targetID" value="$!target.targetID"/>
+Target: <input type="text" name="targ.target" value="$!target.target"/>
+<br/>
+Description: <textarea name="targ.description">$!target.description</textarea>
+<br/>
+Range: 
+<select name="targ.range">
+    <option value="">Select...</option>
+    <option value="0-5" #if($target.range eq "0-5")selected#end>0-5</option>
+    <option value="Y/N"#if($target.range eq "Y/N")selected#end>Y/N</option>
+    <option value="count"#if($target.range eq "count")selected#end>Count</option>
+</select>
+<br/>
+Category: 
+<select name="targ.category">
+    <option value="">Select...</option>
+    <option value="f" #if($target.category eq "f")selected#end>Feeling</option>
+    <option value="t" #if($target.category eq "t")selected#end>Thought</option>
+    <option value="b" #if($target.category eq "b")selected#end>Behavior</option>
+</select>  
+<br/>
+<input type="submit" value="Add"/>
+&nbsp;&nbsp;
+<input type="button" value="Cancel"/>
+</form>
+</body>
+</html>

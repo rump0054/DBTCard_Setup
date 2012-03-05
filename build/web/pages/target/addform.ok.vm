@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body>
+<form method="post" action="target.add.logic">
+Target: <input type="text" name="target.target"/>
+<br/>
+Description: <textarea name="target.description"></textarea>
+<br/>
+Range: 
+<select name="target.range">
+    <option value="">Select...</option>
+    <option value="0-5">0-5</option>
+    <option value="Y/N">Y/N</option>
+    <option value="count">Count</option>
+</select>
+<br/>
+Category: 
+<select name="target.category">
+    <option value="">Select...</option>
+    <option value="f">Feeling</option>
+    <option value="t">Thought</option>
+    <option value="b">Behavior</option>
+</select>  
+<br/>
+<input type="submit" value="Add"/>
+&nbsp;&nbsp;
+<input type="button" value="Cancel"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,24 @@
+#set( $onload = "javascript: document.getElementById('un').focus();" )
+#set( $left_off = "yes" )
+#set( $right_off = "yes" )
+#set ( $main_span = "span-10" )
+<form method="post" action="j_security_check">
+    <h2>Login</h2>
+    <p>Enter your username and password to login.</p>
+    <table>
+    <tr>
+        <td><label for="j_username">Username</label></td>
+        <td><input type="text" class="text" name="j_username" id="un"/></td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td><input type="password" class="text" name="j_password"/></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td style="text-align: right">
+            <input type="submit" value="Login" />
+        </td>
+    </tr>
+    </table>
+</form>

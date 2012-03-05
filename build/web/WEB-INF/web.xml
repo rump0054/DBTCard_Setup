@@ -16,14 +16,14 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>velocity</servlet-name>
-        <servlet-class>org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
+        <servlet-class>org.apache.velocity.tools.view.servlet.VelocityLayoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>velocity</servlet-name>
         <url-pattern>*.vm</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.vm</welcome-file>
+        <welcome-file>pages/index.vm</welcome-file>
     </welcome-file-list>
     <!--security-role>
         <description>A user</description>
@@ -40,10 +40,11 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Area</web-resource-name>
-            <url-pattern>/index.vm</url-pattern>
+            <url-pattern>/pages/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>user</role-name>
+            <role-name>provider</role-name>
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
@@ -59,11 +60,4 @@
             30
         </session-timeout>
     </session-config>
-    <resource-ref>
-        <description>Diary Card Datasource</description>
-        <res-ref-name>jdbc/diarycard</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-        <res-sharing-scope>Shareable</res-sharing-scope>
-    </resource-ref>
 </web-app>

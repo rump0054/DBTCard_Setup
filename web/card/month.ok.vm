@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<link rel='stylesheet' type='text/css' href='resources/style/cupertino/jquery-ui.css' />
+<script type='text/javascript' src='resources/scripts/jquery-1.7.1.min.js'></script>
+<script type='text/javascript' src='resources/scripts/jquery-ui-1.8.18.custom.min.js'></script>
+<script type='text/javascript'>
+$(function() {
+    $("#datepicker").datepicker({
+        onSelect: function(dateText, inst) {
+            var url = "card.day.logic?datekey=" + dateText;
+            $(location).attr("href",url);
+        }
+    });
+});
+</script>
+<style type='text/css'>
+
+	body {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 14px;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		}
+
+	#calendar {
+		width: 900px;
+		margin: 0 auto;
+		}
+
+</style>
+</head>
+<body>
+<div id='datepicker'></div>
+</body>
+</html>

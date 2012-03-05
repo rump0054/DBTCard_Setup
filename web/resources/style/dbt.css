@@ -1,0 +1,174 @@
+/**
+ * 0.RESET 
+ */
+@import "reset.css";
+
+/**
+ * 1.GLOBAL
+ */
+body {
+  background: #fff;
+  color: #000;
+  font-family: Lucida Grande, Verdana, Arial, sans-serif;
+  font-size: 75%;
+  line-height:1.5;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 3em;
+  line-height: 1em;
+  margin-bottom: .5em; 
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 2em;
+}
+
+h4 {
+  font-size: 1.2em;
+  line-height: 1.25em;
+  margin-bottom: 1.25em; 
+}
+
+h5 {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 1.5em; 
+}
+
+h6 {
+  font-size: .8333em;
+  font-weight: bold;
+  line-height: 1.8em;
+  margin-bottom: 1.8em;
+}
+
+h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1.5em 0;
+}
+
+p a:link {
+  text-decoration: underline;
+}
+
+a:link, a:visited {
+  color: #069;
+  outline: none;
+  text-decoration: none;
+}
+
+a:focus {
+  outline: 1px dotted;
+}
+
+a:hover, a:active, li a.active {
+  color: #069;
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Common Styling */
+li ul, li ol { margin: 0; }
+ul, ol { margin: 0 1.5em 1.5em 0; padding-left: 1.5em; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+dl { margin: 0 0 1.5em 0; }
+dl dt { font-weight: bold; }
+dd { margin-left: 1.5em; }
+table { width:100%; }
+th, tr, td { padding: 0.1em 0.5em; vertical-align: middle; }
+hr { background: #666; border: none; clear: both; float: none; height: 1px; margin: -1px 0 1.5em; width: 100%; }
+fieldset { border: 1px solid #069; margin: .5em 0; padding: 1em; }
+legend { color: #069; font-weight: bold; font-size: 1.1em;} 
+
+/**
+ * 2.LAYOUT
+ */
+#wrapper {
+  margin: 0 auto;
+  padding: 0 10px;
+  width: 940px;
+}
+
+/**
+ * LAYOUT
+ */
+#main {
+  position: relative;
+  float: left;
+  padding: 0;
+  width: 460px;
+  min-height: 400px;
+}
+
+div#main.one-sidebar {
+    width: 700px;
+}
+  
+#sidebar-first {
+  float: left;
+  margin: 0 20px 0 0;
+  padding: 0;
+  width: 220px;
+  min-height: 400px;
+}
+
+#sidebar-second {
+  float: right;
+  padding: 0px;
+  width: 220px;
+  background-color: #d7ebf9;
+  min-height: 400px;
+}
+
+/**
+ * 5.HEADER
+ */
+#header {
+  margin: 0 0 1.5em;
+  padding: 3em 0 0;
+  position: relative;
+  min-height: 60px;
+}
+
+#header #logo {
+  float: left;
+  margin: 0 1em 0 0;
+}
+
+#header #site-name-slogan {
+  float: left;
+  width: 100%;
+}
+
+#header #site-name {
+  font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 1em;
+  margin: 0;
+}
+
+#header #site-name a:hover {
+  text-decoration: none;
+}
+
+#header #site-slogan {
+  margin: 0;
+}

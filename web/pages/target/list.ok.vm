@@ -1,0 +1,26 @@
+<a href="target.addform.logic">Add Target</a>
+<br/>
+<table border="0" cellpadding="3" cellspacing="3">
+<thead>
+<tr>
+    <th>Target</th>
+    <th>Description</th>
+    <th>Range</th>
+    <th>Category</th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
+#foreach($t in $targets)
+<tr>
+    <td>$t.target</td>
+    <td>$!t.description</td>
+    <td>$t.range</td>
+    <td>$t.category</td>
+    <td>
+        <a href="target.editform.logic?id=$t.targetID">Edit</a>
+    </td>
+</tr>
+#end
+</tbody>
+</table>

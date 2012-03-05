@@ -1,0 +1,42 @@
+<form method="post" action="card.addEntry.logic">
+<input type="hidden" name="dayCard.datekey" value="$!card.datekey"/>
+<input type="hidden" name="dayCard.cardID" value="$!card.cardID"/>
+<input type="hidden" name="dayCard.daykey" value="$!card.daykey"/>
+#set( $targets = $card.targets )
+#set( $c = 0 )
+<fieldset>
+<legend>Feelings</legend>
+<table border="0" cellpadding="3" cellspacing="3">
+#foreach( $t in $card.getCategoryTargets('f'))
+<tr>
+    <td>
+        <label>$!t.target</label>
+    </td>
+    <td>
+        <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
+        <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
+        <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
+        #if($t.rangeMax eq "count")
+            <input type="text" name="targs[$c].value" value="$!t.value" size="3"/>
+        #elseif($t.rangeMax eq "Y/N" )
+            <input type="radio" name="targs[$c].value" value="Y"
+                #if($t.value eq "Y") checked #end/><label>Y</label>
+            <input type="radio" name="targs[$c].value" value="N"
+                #if($t.value eq "N") checked #end/><label>N</label>
+        #else
+            #foreach( $v in [0..5] )
+                <input type="radio" name="targs[$c].value" value="$v"
+                    #if($t.value eq $v) checked #end/><label>$v</label>
+            #end
+        #end    
+    </td>
+</tr>
+#set( $c = $c+1)
+#end
+<tr>
+    <td colspan="2" align="right">
+        <input type="submit" value="Go"/>
+    </td>
+</tr>
+</table>
+</fieldset>
