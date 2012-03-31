@@ -3,6 +3,13 @@
  */
 @import "reset.css";
 
+#targetsvalues thead tr, #targetsvalues tbody tr:nth-child(even) {
+border: 1px solid #AED0EA;
+background: #D7EBF9 url(images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x;
+font-weight: bold;
+color: #2779AA;
+}
+
 /**
  * 1.GLOBAL
  */
@@ -93,7 +100,7 @@ dl dt { font-weight: bold; }
 dd { margin-left: 1.5em; }
 table { width:100%; }
 th, tr, td { padding: 0.1em 0.5em; vertical-align: middle; }
-hr { background: #666; border: none; clear: both; float: none; height: 1px; margin: -1px 0 1.5em; width: 100%; }
+hr { background: #666; border: none; clear: both; float: none; height: 1px; margin: 1.5em 0; width: 100%; }
 fieldset { border: 1px solid #069; margin: .5em 0; padding: 1em; }
 legend { color: #069; font-weight: bold; font-size: 1.1em;} 
 
@@ -171,4 +178,13 @@ div#main.one-sidebar {
 
 #header #site-slogan {
   margin: 0;
+}
+
+.highlight-letter {
+    font-weight: bold;
+}
+
+.abbrev {
+    color: #069;
+    font-weight: bold;
 }

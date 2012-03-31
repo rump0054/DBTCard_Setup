@@ -1,0 +1,93 @@
+<form method="post" action="card.addEntry.logic">
+<h2>Diary Card</h2>
+
+<input type="hidden" name="dayCard.datekey" value="$!card.datekey"/>
+<input type="hidden" name="dayCard.cardID" value="$!card.cardID"/>
+<input type="hidden" name="dayCard.daykey" value="$!card.daykey"/>
+#set( $targets = $card.targets )
+#set( $c = 0 )
+#set( $headers = ['f','t','b'] )
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+    Diary Card for: <span class="notice">$params.datekey</span>
+</td>
+<td align="right">
+    <a href="card.week.logic?datekey=$card.datekey">Week View</a>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+
+<div id="tabs">
+<ul>
+    <li><a href="#f">Feelings</a></li>
+    <li><a href="#t">Thoughts</a></li>
+    <li><a href="#b">Behaviors</a></li>
+    <li><a href="#h">Homework</a></li>
+</ul>
+
+#foreach($h in $headers )
+<div id="$h">
+<table style="width:400px">
+#foreach( $t in $targets )
+#if( $t.category eq $h and $t.target ne "")
+<tr>
+    <td align="left" style="width: 150px">
+        <label>$t.target:</label>
+        <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
+        <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
+        <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
+    </td>
+    <td>
+        <nobr>
+        #if($t.rangeMax eq "count")
+            <input type="text" name="targs[$c].value" value="$!t.value" size="3"/>
+        #elseif($t.rangeMax eq "Y/N" )
+        <div id="$displayformat.uniqueid($t.target)" class="buttons" style="padding: 3px 0">
+            <input type="radio" id="${displayformat.uniqueid($t.target)}1" 
+                name="targs[$c].value" #if( $t.value eq "Y" )checked#end
+                 value="Y"/>
+            <label for="${displayformat.uniqueid($t.target)}1">Y</label>
+            <input type="radio" id="${displayformat.uniqueid($t.target)}2"
+                name="targs[$c].value" #if( $t.value eq "N" )checked#end
+                value="N"/>
+            <label for="${displayformat.uniqueid($t.target)}2">N</label>
+        </div>
+        #else
+        <div id="$displayformat.uniqueid($t.target)" class="buttons" style="padding: 3px 0">
+            #foreach( $v in [0..5] )
+                <input type="radio" name="targs[$c].value" value="$v"
+                    id="${displayformat.uniqueid($t.target)}$v"
+                    #if($t.value eq $v) checked #end/>
+                <label for="${displayformat.uniqueid($t.target)}$v">$v</label>
+            #end
+        </div>
+        #end
+        </nobr>
+    </td>
+</tr>
+#set( $c = $c+1)
+#end
+#end
+</table>
+</div>
+#end
+
+<div id="h">
+<h5>Check the box next to the skills you practiced</h5>
+<table style="width:400px">
+<tr>
+    <td>Effectiveness: focus on what works (don't try things that don't work for you)</td>
+    <td><input type="checkbox" name="a" value="yes"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+    <td align="right" colspan="2"><input type="submit" value="Done"/></td>
+</tr>
+</table>
+</div>

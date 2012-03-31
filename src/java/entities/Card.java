@@ -8,7 +8,7 @@ public class Card {
     private long previousCardID;
     private String username;
     private long weekStart;
-    private ArrayList<Target> targets;
+    private ArrayList<Target> targets = new ArrayList<Target>();
     private String datekey;
     private int daykey;
 

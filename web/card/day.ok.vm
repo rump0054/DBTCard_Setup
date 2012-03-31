@@ -1,123 +1,330 @@
 <form method="post" action="card.addEntry.logic">
+<h2>Diary Card</h2>
+
 <input type="hidden" name="dayCard.datekey" value="$!card.datekey"/>
 <input type="hidden" name="dayCard.cardID" value="$!card.cardID"/>
 <input type="hidden" name="dayCard.daykey" value="$!card.daykey"/>
 #set( $targets = $card.targets )
 #set( $c = 0 )
+#set( $headers = ['f','t','b'] )
 
-<table border="0" cellpadding="0" cellspacing="0" style="width:5%">
+<table border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td>
-<fieldset>
-<legend>Feelings</legend>
-<table border="0" cellpadding="3" cellspacing="3">
-#foreach( $t in $card.getCategoryTargets('f'))
+    Diary Card for: <span class="notice">$params.datekey</span>
+</td>
+<td align="right">
+    <a href="card.week.logic?datekey=$card.datekey">Week View</a>
+</td>
+</tr>
 <tr>
-    <td>
-        <nobr><label>$!t.target</label></nobr>
-    </td>
-    <td>
-        <nobr>
+<td colspan="2">
+
+<div id="tabs">
+<ul>
+    <li><a href="#f">Feelings</a></li>
+    <li><a href="#t">Thoughts</a></li>
+    <li><a href="#b">Behaviors</a></li>
+    <li><a href="#h">Homework</a></li>
+    <li><a href="#n">Notes</a></li>
+</ul>
+
+#foreach($h in $headers )
+<div id="$h">
+<table>
+#foreach( $t in $targets )
+#if( $t.category eq $h and $t.target ne "")
+<tr>
+    <td align="left" style="width: 150px">
+        <label>$t.target:</label>
         <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
         <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
         <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
+    </td>
+    <td>
+        <nobr>
         #if($t.rangeMax eq "count")
             <input type="text" name="targs[$c].value" value="$!t.value" size="3"/>
         #elseif($t.rangeMax eq "Y/N" )
-            <input type="radio" name="targs[$c].value" value="Y"
-                #if($t.value eq "Y") checked #end/><label>Y</label>
-            <input type="radio" name="targs[$c].value" value="N"
-                #if($t.value eq "N") checked #end/><label>N</label>
+        <div id="$displayformat.uniqueid($t.target)" class="buttons" style="padding: 3px 0">
+            <input type="radio" id="${displayformat.uniqueid($t.target)}1" 
+                name="targs[$c].value" #if( $t.value eq "Y" )checked#end
+                 value="Y"/>
+            <label for="${displayformat.uniqueid($t.target)}1">Y</label>
+            <input type="radio" id="${displayformat.uniqueid($t.target)}2"
+                name="targs[$c].value" #if( $t.value eq "N" )checked#end
+                value="N"/>
+            <label for="${displayformat.uniqueid($t.target)}2">N</label>
+        </div>
         #else
+        <div id="$displayformat.uniqueid($t.target)" class="buttons" style="padding: 3px 0">
             #foreach( $v in [0..5] )
                 <input type="radio" name="targs[$c].value" value="$v"
-                    #if($t.value eq $v) checked #end/><label>$v</label>
+                    id="${displayformat.uniqueid($t.target)}$v"
+                    #if($t.value eq $v) checked #end/>
+                <label for="${displayformat.uniqueid($t.target)}$v">$v</label>
             #end
+        </div>
         #end
         </nobr>
     </td>
 </tr>
 #set( $c = $c+1)
 #end
+#end
 </table>
-</fieldset>
+</div>
+#end
+
+#set( $h = ['wisemind','observe','describe','participate','nonjudgemental','onemindfully',
+'effective','dearman','givefast','attend','goalspriotities','oppositeemaotion','tip',
+'mindfullness','problemsolve','abc','prevent','distract','selfsooth','improvemoment',
+'procon','radicalaccept'])
+
+<div id="h">
+<h5>Check the box next to the skills you practiced</h5>
+<table>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[0]"
+            #if($homework.contains($h[0]))checked#end/>
+    </td>
+    <td>
+        <label>Wise mind</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[1]"
+            #if($homework.contains($h[1]))checked#end/>
+    </td>
+    <td>
+        <label>Observe: just notice</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[2]"
+            #if($homework.contains($h[2]))checked#end/>
+    </td>
+    <td>
+        <label>Describe: put words on, just the facts</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[3]"
+            #if($homework.contains($h[3]))checked#end/>
+    </td>
+    <td>
+        <label>Participate: enter into the experience</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[4]"
+            #if($homework.contains($h[4]))checked#end/>
+    </td>
+    <td>
+        <label>Non-judgmental stance (it is what it is, no need to judge yourself)</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[5]"
+            #if($homework.contains($h[5]))checked#end/>
+    </td>
+    <td>
+        <label>One-mindfully: present moment (focus on only one thing)</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[6]"
+            #if($homework.contains($h[6]))checked#end/>
+    </td>
+    <td>
+        <label>Effectiveness: focus on what works (don't try things that don't work for you)</label>
+    </td>    
+</tr>
+
+<tr><td colspan="2"><hr style="margin-top:1em"/></td></tr>
+
+<tr>
+    <td valign="top" style="vertical-align: top">
+        <input type="checkbox" name="home" value="$h[7]"
+            #if($homework.contains($h[7]))checked#end/>
+    </td>
+    <td>
+        <span class="abbrev">DEAR MAN</span><br/>
+        <span class="highlight-letter">D</span>escribe, <span class="highlight-letter">E</span>xpress, <span class="highlight-letter">A</span>ssert,
+        <span class="highlight-letter">R</span>einforce<br/> <span class="highlight-letter">M</span>indful: broken record,
+        Ignore attacks, <span class="highlight-letter">A</span>ppear confident, <span class="highlight-letter">N</span>egotiate
+    </td>    
+</tr>
+<tr>
+    <td valign="top" style="vertical-align: top">
+        <input type="checkbox" name="home" value="$h[8]"
+            #if($homework.contains($h[8]))checked#end/>
+    </td>
+    <td>
+        <span class="abbrev">GIVE FAST</span><br/>
+        <span class="highlight-letter">G</span>entle, <span class="highlight-letter">I</span>nterested, <span class="highlight-letter">V</span>alidate,
+        <span class="highlight-letter">E</span>asy manner
+        <br/>
+        <span class="highlight-letter">F</span>air, no-<span class="highlight-letter">A</span>pologies,  
+        <span class="highlight-letter">S</span>tick to values, <span class="highlight-letter">T</span>ruthful
+    </td>    
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[9]"
+            #if($homework.contains($h[9]))checked#end/>
+    </td>
+    <td>
+        <label>Attend to relationships</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[10]"
+            #if($homework.contains($h[10]))checked#end/>
+    </td>
+    <td>
+        <label>Figure out interpersonal goals and priorities</label>
+    </td>  
+</tr>
+
+<tr><td colspan="2"><hr/></td></tr>
+
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[11]"
+            #if($homework.contains($h[11]))checked#end/>
+    </td>
+    <td>
+        <label>Opposite-to-emotion action</label>
+    </td>  
+</tr>
+<tr>
+    <td valign="top" style="vertical-align: top">
+        <input type="checkbox" name="home" value="$h[12]"
+            #if($homework.contains($h[12]))checked#end/>
+    </td>
+    <td>
+        <span class="abbrev">TIP</span><br/>
+        <span class="highlight-letter">T</span>emperature,
+        <span class="highlight-letter">I</span>ntense exercise,
+        <span class="highlight-letter">P</span>rogressive relaxation
+    </td>    
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[13]"
+            #if($homework.contains($h[13]))checked#end/>
+    </td>
+    <td>
+        <label>Mindfulness of Current Emotion</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[14]"
+            #if($homework.contains($h[14]))checked#end/>
+    </td>
+    <td>
+        <label>Problem solve</label>
+    </td>  
+</tr>
+<tr>
+    <td valign="top" style="vertical-align: top">
+        <input type="checkbox" name="home" value="$h[15]"
+            #if($homework.contains($h[15]))checked#end/>
+    </td>
+    <td>
+        <span class="abbrev">ABC</span><br/>
+        <span class="highlight-letter">A</span>ccumulate positives,
+        <span class="highlight-letter">B</span>uild mastery,
+        <span class="highlight-letter">C</span>ope ahead
+    </td>    
+</tr>
+<tr>
+    <td valign="top" style="vertical-align: top">
+        <input type="checkbox" name="home" value="$h[16]"
+            #if($homework.contains($h[16]))checked#end/>
+    </td>
+    <td>
+        <span class="abbrev">PLEASE PREVENT</span><br/>
+        Care: <span class="highlight-letter">P</span>hysica<span class="highlight-letter">L</span> ills, 
+        <span class="highlight-letter">E</span>ating, 
+        <span class="highlight-letter">A</span>void drugs,
+        <span class="highlight-letter">S</span>leeping,
+        <span class="highlight-letter">E</span>xercise,
+        <br/>
+        Challenge Thinking, Mindful of Current Thoughts
+    </td>    
+</tr>
+
+<tr><td colspan="2"><hr/></td></tr>
+
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[17]"
+            #if($homework.contains($h[17]))checked#end/>
+    </td>
+    <td>
+        <label>Distract</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[18]"
+            #if($homework.contains($h[18]))checked#end/>
+    </td>
+    <td>
+        <label>Self-Soothe</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[19]"
+            #if($homework.contains($h[19]))checked#end/>
+    </td>
+    <td>
+        <label>Improve the moment</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[20]"
+            #if($homework.contains($h[20]))checked#end/>
+    </td>
+    <td>
+        <label>Pros and Cons</label>
+    </td>  
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" name="home" value="$h[21]"
+            #if($homework.contains($h[21]))checked#end/>
+    </td>
+    <td>
+        <label>Radical acceptance, Turn the mind, Willingness</label>
+    </td>  
+</tr>
+</table>
+</div>
+
+<div id="n">
+<h5>Notes</h5>
+<textarea name="notes" id="notes" cols="90" rows="10">$!card.note</textarea>
+</div>
+
+
 </td>
 </tr>
 <tr>
-    <td>
-    <fieldset>
-    <legend>Thoughts</legend>
-    <table border="0" cellpadding="3" cellspacing="3">
-    #foreach( $t in $card.getCategoryTargets('t'))
-    <tr>
-        <td>
-            <nobr><label>$!t.target</label></nobr>
-        </td>
-        <td>
-            <nobr>
-            <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
-            <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
-            <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
-            #if($t.rangeMax eq "count")
-                <input type="text" name="targs[$c].value" value="$!t.value" size="3"/>
-            #elseif($t.rangeMax eq "Y/N" )
-                <input type="radio" name="targs[$c].value" value="Y"
-                    #if($t.value eq "Y") checked #end/><label>Y</label>
-                <input type="radio" name="targs[$c].value" value="N"
-                    #if($t.value eq "N") checked #end/><label>N</label>
-            #else
-                #foreach( $v in [0..5] )
-                    <input type="radio" name="targs[$c].value" value="$v"
-                        #if($t.value eq $v) checked #end/><label>$v</label>
-                #end
-            #end 
-            </nobr>
-        </td>
-    </tr>
-    #set( $c = $c+1)
-    #end
-    </table>
-    </fieldset>
-    </td>
-</tr>
-<tr>
-    <td>
-    <fieldset>
-    <legend>Behaviors</legend>
-    <table border="0" cellpadding="3" cellspacing="3">
-    #foreach( $t in $card.getCategoryTargets('b'))
-    <tr>
-        <td>
-            <nobr><label>$!t.target</label></nobr>
-        </td>
-        <td>
-            <nobr>
-            <input type="hidden" name="targs[$c].targetID" value="$t.targetID"/>
-            <input type="hidden" name="targs[$c].cardID" value="$t.cardID"/>
-            <input type="hidden" name="targs[$c].dayKey" value="$t.dayKey"/>
-            #if($t.rangeMax eq "count")
-                <input type="text" name="targs[$c].value" value="$!t.value" size="3"/>
-            #elseif($t.rangeMax eq "Y/N" )
-                <input type="radio" name="targs[$c].value" value="Y"
-                    #if($t.value eq "Y") checked #end/><label>Y</label>
-                <input type="radio" name="targs[$c].value" value="N"
-                    #if($t.value eq "N") checked #end/><label>N</label>
-            #else
-                #foreach( $v in [0..5] )
-                    <input type="radio" name="targs[$c].value" value="$v"
-                        #if($t.value eq $v) checked #end/><label>$v</label>
-                #end
-            #end    
-            </nobr>
-        </td>
-    </tr>
-    #set( $c = $c+1)
-    #end
-    </table>
-    </fieldset>
-    </td>
-</tr>
-<tr>
-    <td align="right"><input type="submit" value="Done"/></td>
+    <td align="right" colspan="2"><input type="submit" value="Done"/></td>
 </tr>
 </table>
+</div>

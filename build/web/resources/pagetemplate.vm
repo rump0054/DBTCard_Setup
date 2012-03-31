@@ -7,6 +7,7 @@
 <script type='text/javascript' src='resources/scripts/jquery-1.7.1.min.js'></script>
 <script type='text/javascript' src='resources/scripts/jquery-ui-1.8.18.custom.min.js'></script>
 <script type="text/javascript" src='resources/scripts/jquery.formtips.js'></script>
+<script type="text/javascript" src='resources/scripts/jquery.textareaCounter.plugin.js'></script>
 <script>
 $(document).ready(function() {
     $('#targetTarget').formtips({
@@ -21,6 +22,16 @@ $(document).ready(function() {
             $(location).attr("href",url);
         }
     });
+
+    $(".buttons").buttonset();
+    $('#tabs').tabs();
+    
+    var options = { 
+        'originalStyle': 'originalDisplayInfo',
+    };
+
+    $('#notes').textareaCount(options);
+
 });
 </script>
 <style>
@@ -53,7 +64,7 @@ h3 {
             </a>
             <h2 id="site-name">
                 <a href="$link.contextPath" title="Home" rel="home">
-                    <span>DBT Diary Cards</span>
+                    <span>Diary Cards</span>
                 </a>
             </h2>
             <div id="site-slogan">
@@ -63,9 +74,13 @@ h3 {
     </div>
     
 <div id="space" style="margin-top:10px">
+    #if( $left_off ne "off" )
     <div id="sidebar-first">
+        #if( $date_off ne "off" )
         <div id='datepicker'></div>
+        #end
     </div>
+    #end
 
     <div id="main" class="one-sidebar">
         $!screen_content

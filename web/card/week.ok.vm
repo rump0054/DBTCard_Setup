@@ -1,0 +1,24 @@
+<table id="targetsvalues" class="ui-widget-content">
+<thead>
+<tr>
+    <th>Target</th>   
+    <th>Sun</th>
+    <th>Mon</th>
+    <th>Tue</th>
+    <th>Wed</th>
+    <th>Thu</th>
+    <th>Fri</th>
+    <th>Sat</th>
+</tr>
+</thead>
+<tbody>
+#foreach( $t in $targets )
+<tr>
+    <td>$t.target</td>
+    #foreach( $value in $t.WeekValues )
+        <td align="center">$!value</td>
+    #end
+</tr>
+#end
+</tbody>
+</table>

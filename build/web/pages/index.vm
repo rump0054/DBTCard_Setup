@@ -1,1 +1,2 @@
-<h3>Hello!</h3>
+<h3>Hello $!request.remoteUser!</h3>
+#parse( 'resources/providerarea.vm' )

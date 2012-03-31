@@ -34,11 +34,13 @@ public class CardLogic {
     @Out
     private Card card;
     @Out
+    private ArrayList<Target> targets;
+    @Out
     private String msgs;
 
     // Method determines if user goes to day or setup pages
     public String direct() {
-        String username = "erumppe";
+        String username = request.getRemoteUser();
         keydate = datekey;
 
         // Remove card from session in case it was left by setup
@@ -52,13 +54,9 @@ public class CardLogic {
         }
     }
 
-    // Empty method that sends you to the month calendar page
-    public void month() {
-    }
-
-    // Method determines if forward to card setup or day page
+    // Method to display day page view
     public String day() {
-        String username = "erumppe";  //request.getRemoteUser();
+        String username = request.getRemoteUser();
 
         card = new Card();
         card = CardDAO.getCard(username, datekey);
@@ -67,9 +65,32 @@ public class CardLogic {
         return "ok";
     }
 
+    // Method to display week page view
+    public String week() {
+        String username = request.getRemoteUser();
+        keydate = datekey;
+        
+        boolean needCard = CardDAO.needCard(username, datekey);
+        if (!needCard)
+        {
+            targets = new ArrayList<Target>();
+            targets = CardDAO.getCardTargets(username, datekey);
+            
+            return "ok";
+        }
+        else
+        {
+            return "setup";
+        }      
+    }
+    
+    // Empty method that sends you to the month calendar page
+    public void month() {
+    }
+    
     public void setup()
     {
-        String username = "erumppe";
+        String username = request.getRemoteUser();
         
         if(session.getAttribute("card") != null &&
            session.getAttribute("card") != "")

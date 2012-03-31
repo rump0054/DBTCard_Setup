@@ -93,6 +93,94 @@ public class CardDAO {
         return card;
     }
     
+    public static ArrayList<Target> getCardTargets(String username, String datekey)
+    {
+        ArrayList<Target> targets = new ArrayList<Target>();
+ 
+        long weekStart = DateUtils.getWeekStart(datekey);
+        int dayKey = DateUtils.getDayKey(datekey);
+        
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String q = "SELECT * FROM card WHERE username=? AND weekStart=?";
+
+        try {
+            long cardID = 0;
+            
+            ps = connection.prepareStatement(q);
+            ps.setString(1, username);
+            ps.setDate(2, new java.sql.Date(weekStart));
+
+            rs = ps.executeQuery();
+            
+            if (rs != null && rs.next()) {
+               cardID = rs.getLong("cardID");
+            }
+            
+            if(cardID != 0)
+            {
+                q = "SELECT `card_targets`.*,`targets`.* FROM card_targets "
+                        + "LEFT JOIN `targets` ON `card_targets`.`targetID` "
+                        + "= `targets`.`targetID` WHERE `card_targets`.`cardID` = ?";
+ 
+                ps = connection.prepareStatement(q);
+                ps.setLong(1, cardID);
+                
+                rs = ps.executeQuery();
+
+                while(rs.next()) {
+                    Target target = new Target();
+                    target.setCardID(rs.getLong("cardID"));
+                    target.setTargetID(rs.getLong("targetID"));
+                    target.setTarget(rs.getString("target"));
+                    target.setDescription(rs.getString("description"));
+                    target.setCategory(rs.getString("category"));
+                    target.setRangeMax(rs.getString("range"));
+                    target.setDayKey(dayKey);
+                    
+                    targets.add(target);
+                }
+                
+                for(Target t : targets)
+                {
+                    for(int i = 1; i <=7; i++)
+                    {
+                        String cardtargvalue = null;
+                    
+                        q = "SELECT * FROM card_targets_values "
+                            + "WHERE cardID = " + t.getCardID() + " "
+                            + "AND targetID = " + t.getTargetID() + " "
+                            + "AND dayKey = " + i;
+                    
+                        ps = connection.prepareStatement(q);
+                        rs = ps.executeQuery(q);
+                    
+                        if(rs.next())
+                        {
+                            cardtargvalue = rs.getString("value");
+                        }
+                        
+                        t.addWeekValue(cardtargvalue);
+                    }
+                }
+            }
+
+            rs.close();
+            ps.close();;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            pool.freeConnection(connection);
+
+        }
+                
+        return targets;
+    }
+       
     public static boolean needCard(String username, String datekey) {
         boolean needCard = true;
         long weekStart = DateUtils.getWeekStart(datekey);
@@ -260,12 +348,15 @@ public class CardDAO {
             
             for(Target t : card.getTargets())
             {
-                q = "INSERT INTO `card_targets` VALUES (?,?)";
-                ps = connection.prepareStatement(q);
-                ps.setLong(1, card.getCardID());
-                ps.setLong(2, t.getTargetID());
+                if(t.isActive() && t.getTarget() != null && !t.getTarget().equals(""))
+                {
+                    q = "INSERT INTO `card_targets` VALUES (?,?)";
+                    ps = connection.prepareStatement(q);
+                    ps.setLong(1, card.getCardID());
+                    ps.setLong(2, t.getTargetID());
                 
-                rows = ps.executeUpdate();
+                    rows = ps.executeUpdate();
+                }
             }
 
             rs.close();

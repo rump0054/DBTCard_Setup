@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Target implements Comparable<Target> {
 
     protected long targetID;
@@ -11,6 +13,7 @@ public class Target implements Comparable<Target> {
     protected String rangeMax;
     protected String category;
     protected String value;
+    protected ArrayList<String> weekValues = new ArrayList<String>();
     protected boolean active;
 
     public Target() {
@@ -24,6 +27,18 @@ public class Target implements Comparable<Target> {
         this.cardID = cardID;
     }
 
+    public ArrayList<String> getWeekValues() {
+        return weekValues;
+    }
+
+    public void setWeekValues(ArrayList<String> weekValues) {
+        this.weekValues = weekValues;
+    }
+
+    public void addWeekValue(String weekValue) {
+        this.weekValues.add(weekValue);
+    }
+        
     public boolean isActive() {
         return active;
     }

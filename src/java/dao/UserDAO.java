@@ -49,9 +49,9 @@ public class UserDAO {
         return user;
     }
     
-    public static List<User> getUsersByProvider(String username)
+    public static ArrayList<User> getUsersByProvider(String username)
     {
-        List<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<User>();
 
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -91,5 +91,43 @@ public class UserDAO {
         }
         
         return users;
+    }
+    
+   public static User addUser(User user)
+    {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String q = "SELECT * FROM userpass WHERE providerName = ?";
+
+        try {
+            
+            ps = connection.prepareStatement(q);
+            //ps.setString(1, username);
+            
+            rs = ps.executeQuery();
+
+            if (rs != null && rs.next()) {
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setEmailAddress(rs.getString("emailAddress"));
+                user.setProviderName(rs.getString("providerName"));
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+           e.printStackTrace();
+
+        } finally {
+            pool.freeConnection(connection);
+
+        }
+        
+        return user;
     }
 }

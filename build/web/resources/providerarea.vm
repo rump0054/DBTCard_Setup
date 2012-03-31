@@ -1,0 +1,3 @@
+#if( $request.isUserInRole("provider") )
+<a href="providers.options.logic">Provider Options</a><br/>
+#end
